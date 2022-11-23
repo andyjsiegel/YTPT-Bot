@@ -8,6 +8,6 @@ module.exports = {
     async execute(interaction) {
         interaction.reply(`🏓 **PONG! Latency is:** \`${Date.now() - interaction.createdTimestamp}ms\``)
         interaction.channel.send("Testing message 2");
-        interaction.channel.send("Testing message 3");
+        interaction.channel.send("Testing message 3"); 
     },
 }
