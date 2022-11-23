@@ -1,0 +1,34 @@
+{
+  "name": "visual-studio-code-stuffs",
+  "version": "1.0.0",
+  "description": "n/a",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon index.js",
+    "dply": "node deploy-commands.js"
+  },
+  "keywords": [],
+  "author": "andy",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "@discordjs/rest": "^0.4.1",
+    "@napi-rs/canvas": "^0.1.25",
+    "clipboardy": "^3.0.0",
+    "discord-api-types": "^0.33.2",
+    "discord.js": "^14.1.2",
+    "dotenv": "^16.0.0",
+    "nodemon": "^1.3.3",
+    "prompt-sync": "^4.2.0",
+    "weather-js": "^2.0.0",
+    "weather.js": "^0.1.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/n/a.git"
+  },
+  "bugs": {
+    "url": "https://github.com/n/a/issues"
+  },
+  "homepage": "https://github.com/n/a#readme"
+}
