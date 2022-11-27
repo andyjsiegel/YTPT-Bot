@@ -118,7 +118,7 @@ client.on('interactionCreate', async interaction => {
 				}
 				message.edit({ embeds: [oldTodayEmbed]})
 				const {todayMessage} = require('./commands/updatetoday')
-				todayMessage.embed = oldTodayEmbed
+				// todayMessage.embed = oldTodayEmbed
 			})
 		}
 		if(interaction.customId === 'hoursModalAdmin') {
@@ -134,7 +134,7 @@ client.on('interactionCreate', async interaction => {
 				}
 				message.edit({ embeds: [oldTodayEmbed]})
 				const {todayMessage} = require('./commands/updatetoday')
-				todayMessage.embed = oldTodayEmbed
+				// todayMessage.embed = oldTodayEmbed
 			})
 		}
 	}
