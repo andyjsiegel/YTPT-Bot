@@ -4,6 +4,7 @@ const path = require('node:path');
 const { Client, GatewayIntentBits, Collection, Partials, InteractionType, ActivityType, ModalBuilder, ActionRowBuilder, TextInputBuilder, TextInputStyle, ContextMenuCommandBuilder, ApplicationCommandType, EmbedBuilder } = require('discord.js');
 const { token } = require('./config.json');
 const { schedules, getName, getTime, getUserObject} = require('./utils.js');
+const { todayMessage } = require('./commands/updatetoday')
 
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildPresences, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent] });
@@ -119,23 +120,7 @@ client.on('interactionCreate', async interaction => {
 					oldTodayEmbed.fields[1].value = oldTodayEmbed.fields[1].value + '\n' + person + " is working from " + hoursWorking + "." 
 				}
 				message.edit({ embeds: [oldTodayEmbed]})
-				const { todayMessage, todayMessage } = require('./commands/updatetoday')
-				todayMessage.embed = oldTodayEmbed
-			})
-		}
-		if(interaction.customId === 'hoursModalAdmin') {
-			await interaction.reply({content:'Submission Recieved!',ephemeral: true})
-			const hoursWorking = interaction.fields.getTextInputValue('hoursInput')
-			const person = interaction.fields.getTextInputValue('nameInput')
-			await interaction.channel.messages.fetch(interaction.message.id).then(message => {
-				var oldTodayEmbed = message.embeds[0]
-				if(oldTodayEmbed.fields[1].value === 'No one is working today.') {
-					oldTodayEmbed.fields[1].value = person + " is working from " + hoursWorking + "." 
-				} else {
-					oldTodayEmbed.fields[1].value = oldTodayEmbed.fields[1].value + '\n' + person + " is working from " + hoursWorking + "." 
-				}
-				message.edit({ embeds: [oldTodayEmbed]})
-				const { todayMessage } = require('./commands/updatetoday')
+				
 				todayMessage.embed = oldTodayEmbed
 			})
 		}
