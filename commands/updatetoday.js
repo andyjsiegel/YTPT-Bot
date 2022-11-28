@@ -31,7 +31,7 @@ module.exports = {
       //   embed : todayEmbed,
       //   buttons : todayRow
       // }      
-     exports.todayMessage =  todayMessage = {
+     module.exports.todayMessage =  todayMessage = {
       embed : todayEmbed,
       buttons : todayRow
     }      
