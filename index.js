@@ -4,7 +4,8 @@ const path = require('node:path');
 const { Client, GatewayIntentBits, Collection, Partials, InteractionType, ActivityType, ModalBuilder, ActionRowBuilder, TextInputBuilder, TextInputStyle, ContextMenuCommandBuilder, ApplicationCommandType, EmbedBuilder } = require('discord.js');
 const { token } = require('./config.json');
 const { schedules, getName, getTime, getUserObject} = require('./utils.js');
-const { todayMessage } = require('./commands/updatetoday')
+const today = require('./commands/today');
+
 
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildPresences, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent] });
@@ -61,6 +62,7 @@ client.on('interactionCreate', async interaction => {
 			else if(name.toLowerCase() === "defenestrat10n") {interaction.reply({ embeds: [tobySchedule], ephemeral: true }) }
 		}
 		if(interaction.customId === 'workSchedule') {
+			const { todayMessage } = require('./commands/updatetoday')
 			await interaction.channel.messages.fetch(interaction.message.id).then(message => {
 				if(message.embeds[0].fields[1].value.includes(getName(interaction.user.username))) {
 					
@@ -78,6 +80,7 @@ client.on('interactionCreate', async interaction => {
 								message.embeds[0].fields[1].value = "No one is working today."
 							}
 							message.edit({embeds: [message.embeds[0]]})
+							
 							
 						} 
 					})
@@ -108,6 +111,7 @@ client.on('interactionCreate', async interaction => {
 		
 	}
 	if(interaction.type === InteractionType.ModalSubmit) {
+		const { todayMessage } = require('./commands/updatetoday')
 		if(interaction.customId === 'hoursModal') {
 			await interaction.reply({content:'Submission Recieved!',ephemeral: true})
 			const hoursWorking = interaction.fields.getTextInputValue('hoursInput')
