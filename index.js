@@ -117,8 +117,8 @@ client.on('interactionCreate', async interaction => {
 					oldTodayEmbed.fields[1].value = oldTodayEmbed.fields[1].value + '\n' + person + " is working from " + hoursWorking + "." 
 				}
 				message.edit({ embeds: [oldTodayEmbed]})
-				const {todayMessage} = require('./commands/updatetoday')
-				// todayMessage.embed = oldTodayEmbed
+				const { todayMessage } = require('./commands/updatetoday')
+				todayMessage.embed = oldTodayEmbed
 			})
 		}
 		if(interaction.customId === 'hoursModalAdmin') {
@@ -133,8 +133,8 @@ client.on('interactionCreate', async interaction => {
 					oldTodayEmbed.fields[1].value = oldTodayEmbed.fields[1].value + '\n' + person + " is working from " + hoursWorking + "." 
 				}
 				message.edit({ embeds: [oldTodayEmbed]})
-				const {todayMessage} = require('./commands/updatetoday')
-				// todayMessage.embed = oldTodayEmbed
+				const { todayMessage } = require('./commands/updatetoday')
+				todayMessage.embed = oldTodayEmbed
 			})
 		}
 	}

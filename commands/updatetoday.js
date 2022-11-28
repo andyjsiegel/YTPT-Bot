@@ -27,16 +27,19 @@ module.exports = {
       const daytype = interaction.options.getString("daytype")
       const specialday = interaction.options.getString("specialday")
       const { todayRow, todayEmbed, sendButtons } = await createTodayEmbed(daytype, specialday)
-      const todayMessage = {
-        embed : todayEmbed,
-        buttons : todayRow
-      }      
-     
+      // const todayMessage = {
+      //   embed : todayEmbed,
+      //   buttons : todayRow
+      // }      
+     exports.todayMessage =  todayMessage = {
+      embed : todayEmbed,
+      buttons : todayRow
+    }      
 
       let nationalDay = " ";
       // nationalDay = await fetch(`https://national-api-day.herokuapp.com/api/today`).then(response => response.json()).then(json => { const funnyDay = json.holidays[Math.floor(Math.random() * json.holidays.length)]; todayEmbed.setDescription(`It's also ${funnyDay}!`)})
       
-      module.exports.todayMessage = todayMessage
+      // module.exports.todayMessage = todayMessage
 
       const { curDate } = getTime();
       await interaction.reply({ embeds: [todayEmbed], components: [ todayRow, sendButtons ] })
