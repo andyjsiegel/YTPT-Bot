@@ -70,12 +70,14 @@ client.on('interactionCreate', async interaction => {
 						if(el.includes(getName(interaction.user.username))) {
 							arr.splice(arr.indexOf(el),1)
 							message.embeds[0].fields[1].value = arr.join('\n')
+							todayMessage.embed = message.embeds[0];
 							if(message.embeds[0].fields[1].value.length > 0) {
 								//do nothing
 							} else {
 								message.embeds[0].fields[1].value = "No one is working today."
 							}
 							message.edit({embeds: [message.embeds[0]]})
+							
 						} 
 					})
 					
@@ -117,7 +119,7 @@ client.on('interactionCreate', async interaction => {
 					oldTodayEmbed.fields[1].value = oldTodayEmbed.fields[1].value + '\n' + person + " is working from " + hoursWorking + "." 
 				}
 				message.edit({ embeds: [oldTodayEmbed]})
-				const { todayMessage } = require('./commands/updatetoday')
+				const { todayMessage, todayMessage } = require('./commands/updatetoday')
 				todayMessage.embed = oldTodayEmbed
 			})
 		}
