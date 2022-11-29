@@ -3,7 +3,7 @@ const path = require('node:path');
 // const clipboardy = require('clipboardy')
 const { Client, GatewayIntentBits, Collection, Partials, InteractionType, ActivityType, ModalBuilder, ActionRowBuilder, TextInputBuilder, TextInputStyle, ContextMenuCommandBuilder, ApplicationCommandType, EmbedBuilder } = require('discord.js');
 const { token } = require('./config.json');
-const { schedules, getName, getTime, getUserObject, createTodayEmbed } = require('./utils.js');
+const { schedules, getName, getTime, getUserObject, createTodayEmbed, checkBDay } = require('./utils.js');
 const today = require('./commands/today');
 const schedule = require('node-schedule')
 
@@ -28,7 +28,7 @@ client.once('ready', () => {
     client.user.setActivity(`Sex 2's Ranked Mode`, { type: ActivityType.Competing });
 });
 
-schedule.scheduleJob('45 14 * * *', async () => { 
+schedule.scheduleJob('48 14 * * *', async () => { 
 	const { daytype } = getTime();
 	specialday = ""
 	const { todayRow, todayEmbed, sendButtons } = await createTodayEmbed(daytype, specialday)
