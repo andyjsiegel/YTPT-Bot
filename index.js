@@ -5,7 +5,7 @@ const { Client, GatewayIntentBits, Collection, Partials, InteractionType, Activi
 const { token } = require('./config.json');
 const { schedules, getName, getTime, getUserObject, createTodayEmbed } = require('./utils.js');
 const today = require('./commands/today');
-import schedule from 'node-schedule'
+const schedule = require('node-schedule')
 
 
 
