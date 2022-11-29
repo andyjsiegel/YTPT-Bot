@@ -6,7 +6,7 @@ module.exports = {
 		.setName('today')
 		.setDescription('Sends today\'s schedule'),
     async execute(interaction) {
-      const { todayMessage } = require('./updatetoday')
+      const { todayMessage } = require('../index.js')
       try {
         await interaction.reply({ embeds: [todayMessage.embed], components: [todayMessage.buttons] }) 
       } catch {
