@@ -28,11 +28,11 @@ client.once('ready', () => {
     client.user.setActivity(`Sex 2's Ranked Mode`, { type: ActivityType.Competing });
 });
 
-schedule.scheduleJob('52 14 * * *', async () => { 
+schedule.scheduleJob('0 15 * * *', async () => { 
 	const { daytype } = getTime();
 	specialday = ""
 	const { todayRow, todayEmbed, sendButtons } = await createTodayEmbed(daytype, specialday)
-	const todayMessage = {
+	todayMessage = {
 		embed : todayEmbed,
 		buttons : todayRow
 	}       
@@ -77,7 +77,7 @@ client.on('interactionCreate', async interaction => {
 			else if(name.toLowerCase() === "defenestrat10n") {interaction.reply({ embeds: [tobySchedule], ephemeral: true }) }
 		}
 		if(interaction.customId === 'workSchedule') {
-			const { todayMessage } = require('./commands/updatetoday')
+			// const { todayMessage } = require('./commands/updatetoday')
 			await interaction.channel.messages.fetch(interaction.message.id).then(message => {
 				if(message.embeds[0].fields[1].value.includes(getName(interaction.user.username))) {
 					
@@ -126,7 +126,7 @@ client.on('interactionCreate', async interaction => {
 		
 	}
 	if(interaction.type === InteractionType.ModalSubmit) {
-		const { todayMessage } = require('./commands/updatetoday')
+		// const { todayMessage } = require('./commands/updatetoday')
 		if(interaction.customId === 'hoursModal') {
 			await interaction.reply({content:'Submission Recieved!',ephemeral: true})
 			const hoursWorking = interaction.fields.getTextInputValue('hoursInput')
