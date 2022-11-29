@@ -18,6 +18,16 @@ function getTime() {
     meridiemUZ = " AM";
     ETm = timeHours - 4;
     year = now.getFullYear();
+    start = new Date(now.getFullYear(), 0, 0);
+    diff = now - start;
+    oneDay = 1000 * 60 * 60 * 24;
+    dayTestThing = Math.floor(diff / oneDay);
+    if (dayTestThing % 2  == 0) {
+        daytype = "even"
+    } else {
+        daytype = "odd"
+    }
+    
     
     
     suffixArray = [
@@ -109,9 +119,10 @@ function getTime() {
         'No one is working today.', //saturday
       ];
 
-    return { monthsArray, daysArray, meridiemUZ, meridiemET, uzbek, ET, schoolday, suffixArray, year, ETm, month, dayOfMonth, bdays, day, countdownDate, diffMillis, diffDays, curDate }
+    return { monthsArray, daysArray, meridiemUZ, meridiemET, uzbek, ET, schoolday, suffixArray, year, ETm, month, dayOfMonth, bdays, day, countdownDate, diffMillis, diffDays, curDate, daytype }
 }
 getTime();
+
 
 const schedule = { 
   aidan: {
@@ -418,10 +429,138 @@ async function createTodayEmbed(daytype, specialday) {
   return { todayEmbed, todayRow, sendButtons}
 }
 
+function checkBDay(bdayUpdateChannel, curDate) {
+  if(bdays.includes(curDate)) { 
+    console.log(curDate)
+    switch(curDate) {
+      case "January 14": 
+          if(bdayUpdateChannel) {            
+            bdayUpdateChannel.send("Hey @everyone, it's Scout's Birthday!")
+          }
+        break;
+      case "January 19": 
+        console.log("Da")
+        if(bdayUpdateChannel) {            
+          bdayUpdateChannel.send("Hey @everyone, it's Da's Birthday!")
+        }
+        break;
+      case "February 18": 
+        console.log("YTPT Bot")
+        if(bdayUpdateChannel) {            
+          bdayUpdateChannel.send("Hey @everyone, it's YTPT Bot's Birthday!")
+        }
+        break;
+      case "March 31": 
+        console.log("Michael")
+        if(bdayUpdateChannel) {            
+          bdayUpdateChannel.send("Hey @everyone, it's Michael's Birthday!")
+        }
+        break;
+      case "April 13": 
+        console.log("Sunny")
+        if(bdayUpdateChannel) {            
+          bdayUpdateChannel.send("Hey @everyone, it's Sunny's Birthday!")
+        }
+        break;
+      case "April 15": 
+        console.log("Nick")
+        if(bdayUpdateChannel) {            
+          bdayUpdateChannel.send("Hey @everyone, it's Nick's Birthday!")
+        }
+        break;
+      case "May 5": 
+        console.log("Blue The Cat")
+        if(bdayUpdateChannel) {            
+          bdayUpdateChannel.send("Hey @everyone, it's Blue The Cat's Birthday!")
+        }
+        break;
+      case "May 7": 
+        console.log("Ozzy")
+        if(bdayUpdateChannel) {            
+          bdayUpdateChannel.send("Hey @everyone, it's Ozzy's Birthday!")
+        }
+        break;
+      case "June 2": 
+        console.log("Ashley")
+        if(bdayUpdateChannel) {            
+          bdayUpdateChannel.send("Hey @everyone, it's Ashley's Birthday!")
+        }
+        break;
+      case "June 3": 
+        console.log("Willie")
+        if(bdayUpdateChannel) {            
+          bdayUpdateChannel.send("Hey @everyone, it's Willie's Birthday!")
+        }
+        break;
+      case "June 16 ": 
+        console.log("Blue The Dog")
+        if(bdayUpdateChannel) {            
+          bdayUpdateChannel.send("Hey @everyone, it's Blue The Dog's Birthday!")
+        }
+        break;
+      case "July 4": 
+        console.log("Liza")
+        if(bdayUpdateChannel) {            
+          bdayUpdateChannel.send("Hey @everyone, it's Liza's Birthday!")
+        }
+        break;
+      case "July 16": 
+        console.log("Aidan")
+        if(bdayUpdateChannel) {            
+          bdayUpdateChannel.send("Hey @everyone, it's Aidan's Birthday!")
+        }
+        break;
+      case "July 28": 
+        console.log("Andy")
+        if(bdayUpdateChannel) {            
+          bdayUpdateChannel.send("Hey @everyone, it's Andy's Birthday!")
+        }
+        break;
+      case "August 4": 
+        console.log("Sofie")
+        if(bdayUpdateChannel) {            
+          bdayUpdateChannel.send("Hey @everyone, it's Sofie's Birthday!")
+        }
+        break;
+      case "August 18": 
+        console.log("Felix")
+        if(bdayUpdateChannel) {            
+          bdayUpdateChannel.send("Hey @everyone, it's Felix's Birthday!")
+        }
+        break;
+      case "November 19": 
+        console.log("Lula")
+        if(bdayUpdateChannel) {            
+          bdayUpdateChannel.send("Hey @everyone, it's Lula's Birthday!")
+        }
+        break;
+      case "October 17": 
+        console.log("Tano")
+        if(bdayUpdateChannel) {            
+          bdayUpdateChannel.send("Hey @everyone, it's Tano's Birthday!")
+        }
+        break;
+      case "November 2": 
+        console.log("Toby")
+        if(bdayUpdateChannel) {            
+          bdayUpdateChannel.send("Hey @everyone, it's Toby's Birthday!")
+        }
+        break;
+      case "December 6": 
+        console.log("Pob")
+        if(bdayUpdateChannel) {            
+          bdayUpdateChannel.send("Hey @everyone, it's Pob's Birthday!")
+        }
+        break;
+    }
+  }
+}
+
 module.exports = { 
     getTime,
     schedules,
     getName,
     createTodayEmbed,
     getUserObject,
+    checkBDay,
 }

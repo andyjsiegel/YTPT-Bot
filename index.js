@@ -3,8 +3,9 @@ const path = require('node:path');
 // const clipboardy = require('clipboardy')
 const { Client, GatewayIntentBits, Collection, Partials, InteractionType, ActivityType, ModalBuilder, ActionRowBuilder, TextInputBuilder, TextInputStyle, ContextMenuCommandBuilder, ApplicationCommandType, EmbedBuilder } = require('discord.js');
 const { token } = require('./config.json');
-const { schedules, getName, getTime, getUserObject} = require('./utils.js');
+const { schedules, getName, getTime, getUserObject, createTodayEmbed } = require('./utils.js');
 const today = require('./commands/today');
+import schedule from 'node-schedule'
 
 
 
@@ -25,9 +26,22 @@ for (const file of commandFiles) {
 client.once('ready', () => {
 	console.log(`logged in as ${client.user.tag}!`)
     client.user.setActivity(`Sex 2's Ranked Mode`, { type: ActivityType.Competing });
-    
 });
 
+schedule.scheduleJob('30 9 * * *', () => { 
+	const { daytype } = getTime();
+	const { todayRow, todayEmbed, sendButtons } = await createTodayEmbed(daytype, specialday)
+	const todayMessage = {
+		embed : todayEmbed,
+		buttons : todayRow
+	}       
+	module.exports.todayMessage = todayMessage
+	const heneral = client.channels.cache.get('763451134290821192')
+	if(heneral) {
+		heneral.send({ embeds: [todayEmbed], components: [ todayRow ] })
+		checkBDay(heneral, curDate);
+	}
+})
 
 client.on('interactionCreate', async interaction => {
 	
