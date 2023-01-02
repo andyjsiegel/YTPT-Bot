@@ -10,7 +10,12 @@ module.exports = {
       try {
         await interaction.reply({ embeds: [todayMessage.embed], components: [todayMessage.buttons] }) 
       } catch {
-        await interaction.reply('Today embed not created, use `/updatetoday` to do so.')
+        const { todayMessage } = require('./updatetoday')
+        try {
+          await interaction.reply({ embeds: [todayMessage.embed], components: [todayMessage.buttons] }) 
+        } catch {
+          await interaction.reply("Today embed not created, use `/updatetoday` to do so.")
+        }
       }
     }
 }

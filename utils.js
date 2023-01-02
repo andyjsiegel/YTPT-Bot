@@ -333,13 +333,13 @@ async function createTodayEmbed(daytype, specialday) {
         schoolday = "It's the weekend!"
         break;
       case 1: 
-        schoolday = "Block 1 *[8:05 - 9:32]*\nStable Group *[9:42 - 10:42]*\nBlock 5 *[11:30 - 1:27]*\nBlock 7 *[1:33 - 3:00]*"
+        schoolday = "Block 1 [8:05 - 9:32]\nStable Group [9:42 - 10:42]\nBlock 5 [11:30 - 1:27]\nBlock 7 [1:33 - 3:00]"
         break;  
       case 6: 
         schoolday = "It's the weekend!"
         break;  
       default: 
-        schoolday = "Block 1 *[8:05 - 9:32]*\nStable Group *[9:38 - 9:53]*\nBlock 3 *[10:29 - 11:24]*\nBlock 5 *[11:30 - 1:27]*\nBlock 7 *[1:33 - 3:00]*"
+        schoolday = "Block 1 [8:05 - 9:32]\nStable Group [9:38 - 9:53]\nBlock 3 [10:29 - 11:24]\nBlock 5 [11:30 - 1:27]\nBlock 7 [1:33 - 3:00]"
     }
   }
   if(daytype === "even") {
@@ -348,13 +348,13 @@ async function createTodayEmbed(daytype, specialday) {
         schoolday = "It's the weekend!"
         break;
       case 1: 
-        schoolday = "Block 2 *[8:05 - 9:32]*\nStable Group *[9:42 - 10:42]*\nBlock 4 *[11:30 - 1:27]*\nBlock 6 *[1:33 - 3:00]*"
+        schoolday = "Block 2 [8:05 - 9:32]\nStable Group [9:42 - 10:42]\nBlock 4 [11:30 - 1:27]\nBlock 6 [1:33 - 3:00]"
         break;  
       case 6: 
         schoolday = "It's the weekend!"
         break;  
       default: 
-        schoolday = "Block 2 *[8:05 - 9:32]*\nStable Group *[9:38 - 9:53]*\nBlock 3 *[10:29 - 11:24]*\nBlock 4 *[11:30 - 1:27]*\nBlock 6 *[1:33 - 3:00]*"
+        schoolday = "Block 2 [8:05 - 9:32]\nStable Group [9:38 - 9:53]\nBlock 3 [10:29 - 11:24]\nBlock 4 [11:30 - 1:27]\nBlock 6 [1:33 - 3:00]"
     }
   }
   if(specialday) {
