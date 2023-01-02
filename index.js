@@ -126,7 +126,7 @@ client.on('interactionCreate', async interaction => {
 		
 	}
 	if(interaction.type === InteractionType.ModalSubmit) {
-		// const { todayMessage } = require('./commands/updatetoday')
+		
 		if(interaction.customId === 'hoursModal') {
 			await interaction.reply({content:'Submission Recieved!',ephemeral: true})
 			const hoursWorking = interaction.fields.getTextInputValue('hoursInput')
@@ -140,7 +140,12 @@ client.on('interactionCreate', async interaction => {
 				}
 				message.edit({ embeds: [oldTodayEmbed]})
 				
-				todayMessage.embed = oldTodayEmbed
+				try {
+					todayMessage.embed = oldTodayEmbed
+				} catch {
+					const { todayMessage } = require('./commands/updatetoday')
+					todayMessage.embed = oldTodayEmbed
+				}
 			})
 		}
 	}
