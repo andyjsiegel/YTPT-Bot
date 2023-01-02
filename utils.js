@@ -23,9 +23,9 @@ function getTime() {
     oneDay = 1000 * 60 * 60 * 24;
     dayTestThing = Math.floor(diff / oneDay);
     if (dayTestThing % 2  == 0) {
-        daytype = "even"
-    } else {
         daytype = "odd"
+    } else {
+        daytype = "even"
     }
     
     
@@ -111,12 +111,12 @@ function getTime() {
     curDate = monthsArray[month] + " " + dayOfMonth;
     workArray = [
         'Andy is working from 4-9 PM.\nFelix is working from 9 AM-5 PM.', //sunday
-        'Felix is working from 4:00-7:30 PM.', //monday
-        'No one is working today.', //tuesday
+        'Felix is working from 4-7:30 PM.', //monday
+        'Pob is working from 4-7 PM.', //tuesday
         'Andy is working from 5-10 PM.\nFelix is working from 4-7:30 PM.', //wednesday
-        'Andy is working from 5-10 PM.\nNick is working from 4-8 PM.', //thursday
-        'No one is working today.', //friday
-        'No one is working today.', //saturday
+        'Pob is working from 4-7 PM.\nNick is working from 4-8 PM.', //thursday
+        'Andy is working from 5-10 PM.\nPob is working from 4-7 PM.', //friday
+        'Pob is working from 12-3 PM.', //saturday
       ];
 
     return { monthsArray, daysArray, meridiemUZ, meridiemET, uzbek, ET, schoolday, suffixArray, year, ETm, month, dayOfMonth, bdays, day, countdownDate, diffMillis, diffDays, curDate, daytype }
@@ -339,7 +339,7 @@ async function createTodayEmbed(daytype, specialday) {
         schoolday = "It's the weekend!"
         break;  
       default: 
-        schoolday = "Block 1 [8:05 - 9:32]\nStable Group [9:38 - 9:53]\nBlock 3 [10:29 - 11:24]\nBlock 5 [11:30 - 1:27]\nBlock 7 [1:33 - 3:00]"
+        schoolday = "Block 1 *[8:05 - 9:32]*\nStable Group *[9:38 - 9:53]*\nBlock 3 *[10:29 - 11:24]*\nBlock 5 *[11:30 - 1:27]*\nBlock 7 *[1:33 - 3:00]*"
     }
   }
   if(daytype === "even") {
@@ -348,13 +348,13 @@ async function createTodayEmbed(daytype, specialday) {
         schoolday = "It's the weekend!"
         break;
       case 1: 
-        schoolday = "Block 2 [8:05 - 9:32]\nStable Group [9:38 - 10:23]\nBlock 4 [11:30 - 1:27]\nBlock 6 [1:33 - 3:00]"
+        schoolday = "Block 2 *[8:05 - 9:32]*\nStable Group *[9:42 - 10:42]*\nBlock 4 *[11:30 - 1:27]*\nBlock 6 *[1:33 - 3:00]*"
         break;  
       case 6: 
         schoolday = "It's the weekend!"
         break;  
       default: 
-        schoolday = "Block 2 [8:05 - 9:32]\nStable Group [9:38 - 9:53]\nBlock 3 [10:29 - 11:24]\nBlock 4 [11:30 - 1:27]\nBlock 6 [1:33 - 3:00]"
+        schoolday = "Block 2 *[8:05 - 9:32]*\nStable Group *[9:38 - 9:53]*\nBlock 3 *[10:29 - 11:24]*\nBlock 4 *[11:30 - 1:27]*\nBlock 6 *[1:33 - 3:00]*"
     }
   }
   if(specialday) {
