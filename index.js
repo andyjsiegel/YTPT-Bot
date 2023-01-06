@@ -140,6 +140,7 @@ client.on('interactionCreate', async interaction => {
 					oldTodayEmbed.fields[1].value = oldTodayEmbed.fields[1].value + '\n' + person + " is working from " + hoursWorking + "." 
 				}
 				message.edit({ embeds: [oldTodayEmbed]})
+				const botsChannel = client.channels.cache.get('673726915110240269')
 				botsChannel.send(`Work Update: **${getName(interaction.user.username)}** is working today.`)
 				try {
 					todayMessage.embed = oldTodayEmbed
