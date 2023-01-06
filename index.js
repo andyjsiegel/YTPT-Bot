@@ -95,7 +95,8 @@ client.on('interactionCreate', async interaction => {
 								message.embeds[0].fields[1].value = "No one is working today."
 							}
 							message.edit({embeds: [message.embeds[0]]})
-							
+							const botsChannel = client.channels.cache.get('673726915110240269')
+							botsChannel.send(`Work Update: **${getName(interaction.user.username)}** is not working today.`)
 							
 						} 
 					})
@@ -139,7 +140,7 @@ client.on('interactionCreate', async interaction => {
 					oldTodayEmbed.fields[1].value = oldTodayEmbed.fields[1].value + '\n' + person + " is working from " + hoursWorking + "." 
 				}
 				message.edit({ embeds: [oldTodayEmbed]})
-				
+				botsChannel.send(`Work Update: **${getName(interaction.user.username)}** is working today.`)
 				try {
 					todayMessage.embed = oldTodayEmbed
 				} catch {

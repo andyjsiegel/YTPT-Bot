@@ -115,7 +115,7 @@ function getTime() {
         'Pob is working from 4-7 PM.', //tuesday
         'Andy is working from 5-10 PM.\nFelix is working from 4-7:30 PM.', //wednesday
         'Pob is working from 4-7 PM.\nNick is working from 4-8 PM.', //thursday
-        'Andy is working from 5-10 PM.\nPob is working from 4-7 PM.', //friday
+        'Pob is working from 4-7 PM.', //friday
         'Pob is working from 12-3 PM.', //saturday
       ];
 
