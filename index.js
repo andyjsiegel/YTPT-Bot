@@ -141,7 +141,7 @@ client.on('interactionCreate', async interaction => {
 				}
 				message.edit({ embeds: [oldTodayEmbed]})
 				const botsChannel = client.channels.cache.get('673726915110240269')
-				botsChannel.send(`Work Update: **${getName(interaction.user.username)}** is working today.`)
+				botsChannel.send(`Work Update: **${person}** is working today.`)
 				try {
 					todayMessage.embed = oldTodayEmbed
 				} catch {
