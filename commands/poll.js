@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const { EmbedBuilder, ActionRowBuilder, ButtonBuilder, Message, Embed } = require('discord.js');
+const { EmbedBuilder, ActionRowBuilder, ButtonBuilder, Message, Embed, ModalBuilder, TextInputComponent, TextInputBuilder, messageLink } = require('discord.js');
 const { getName } = require('../utils')
  
 
@@ -13,44 +13,9 @@ module.exports = {
       .setName('choose')
       .setDescription('Poll with choices')
       .addRoleOption(option => option.setName("target-group").setDescription("Who do you want to ping?").setRequired(true))
-      .addStringOption(option => 
-        option
-          .setName('question')
-          .setDescription('The question')
-          .setRequired(true)
-      )
-      .addStringOption(option =>
-        option 
-          .setName('option1')
-          .setDescription('Option 1')
-          .setRequired(true)
-        )
-      .addStringOption(option =>
-        option 
-          .setName('option2')
-          .setDescription('Option 2')
-          .setRequired(true)
-        )
-      .addStringOption(option =>
-        option 
-          .setName('option3')
-          .setDescription('Option 3')
-          .setRequired(false)
-        )
-      .addStringOption(option =>
-        option 
-          .setName('option4')
-          .setDescription('Option 4')
-          .setRequired(false)
-        )
-      .addStringOption(option =>
-        option 
-          .setName('option5')
-          .setDescription('Option 5')
-          .setRequired(false)
-        )
-        
-  )
+      .addIntegerOption(option => option.setName('num-choices').setDescription('Choose a number of options (2-5)').setRequired(true).setMinValue(2).setMaxValue(5))
+      .addStringOption(option => option.setName('question').setDescription('The question').setRequired(true)))
+  
   .addSubcommand(subcommand => 
     subcommand
       .setName('yesno')
@@ -64,36 +29,57 @@ module.exports = {
       )
     ),
   async execute(interaction) {
-    const question = interaction.options.getString('question')
-    if(interaction.options.getSubcommand() === "choose") {
-      const pollEmbed = new EmbedBuilder()
-        .setDescription("Vote!")
-        .setColor('Random')
-      const pollRow = new ActionRowBuilder()
-      let optionsArray = [ interaction.options.getString('option1'),interaction.options.getString('option2'),interaction.options.getString('option3'),interaction.options.getString('option4'),interaction.options.getString('option5')]
-      optionsArray = optionsArray.join('').split('')
-      optionsArray.forEach((val, idx, arr) => { 
-        pollEmbed.addFields({name: val, value: '\u200B',inline: true });  
-        pollRow.addComponents(
-          new ButtonBuilder()
-            .setCustomId(val)
-            .setLabel(val)
-            .setStyle('Success')
-          )
-      })
-        
+    let question = interaction.options.getString('question')
+    if(!question.includes('?')) question += "?"
+    const pollEmbed = new EmbedBuilder()
+    pollEmbed.setTitle(question)
+    if(interaction.options.getSubcommand() === "yesno") {
 
-      if(!question.includes('?')) 
-        pollEmbed.setTitle(`${question}?`)
-      else
-        pollEmbed.setTitle(question)
-        
-      await interaction.reply({ embeds: [pollEmbed], components: [pollRow] })
+    } else if(interaction.options.getSubcommand() === "choose") {
+        const addOptionsModal = new ModalBuilder().setCustomId("addOptionsModal").setTitle(`Add Options for ${question}`)
 
-    } else if(interaction.options.getSubcommand() === "yesno") {
-      //DO OTHER STUFF
+        for(let i = 0; i<interaction.options.getInteger('num-choices'); i++) {
+          let optionInput = new TextInputBuilder().setCustomId(`option_${i}`).setStyle(1).setLabel(`Option ${i+1}`)
+          let optionInputRow = new ActionRowBuilder().addComponents(optionInput)
+          addOptionsModal.addComponents(optionInputRow)
+        }
+        await interaction.showModal(addOptionsModal)
+        const submitted = await interaction.awaitModalSubmit({
+          time: 60_000,
+        }).catch(error => {
+          console.error(error)
+          return null
+        })
+        if(submitted) {
+          let optionsArray = []
+          for(let i = 0; i<interaction.options.getInteger('num-choices'); i++) {
+            optionsArray.push(submitted.fields.getTextInputValue(`option_${i}`))
+          }
+          console.log(`Options: ${optionsArray}`)
+          const buttonRow = new ActionRowBuilder()
+          optionsArray.forEach((value, idx, arr) => {
+            buttonRow.addComponents(
+              new ButtonBuilder()
+                .setCustomId(`option_${idx}`)
+                .setLabel(value)
+                .setStyle('Primary')
+            )
+            pollEmbed.addFields({name: value, value: "\u200B", inline: true})
+          })
+          const poll = await submitted.reply({ embeds:[pollEmbed], components:[buttonRow], fetchReply: true })
+          await submitted.channel.send(interaction.options.getRole('target-group').name === '@everyone' ? interaction.options.getRole('target-group').name : `<@&${interaction.options.getRole('target-group').id}>`)
+          const collector = poll.createMessageComponentCollector({ time: 900_000 });
+          // console.log(collector)
+          collector.on('collect', i => {
+            pollEmbed.data.fields[parseInt((i.customId).charAt(i.customId.length-1))].value += `${getName(i.user.username)}\n`
+            poll.edit({ embeds:[pollEmbed]})
+            i.reply({content: "Vote Received!", ephemeral: true})
+          });
+          collector.on('end', collected => console.log(`Collected ${collected.size} items`));
+          
+          
+      }
     }
-
   }
 }
 

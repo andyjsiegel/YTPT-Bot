@@ -8,7 +8,6 @@ const today = require('./commands/today');
 const schedule = require('node-schedule')
 
 
-
 const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildPresences, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent] });
 
 client.commands = new Collection();
