@@ -1,8 +1,9 @@
 const { EmbedBuilder, ActionRowBuilder, ButtonBuilder, Message } = require('discord.js');
-
+const moment = require('moment');
 
 function getTime() {
     now = new Date();
+    nowMoment = moment(now);
     global.bdays = ["May 27","January 14","January 19","February 18","March 31","April 13","April 15","May 5","May 7","June 2","June 3","June 16","July 4","July 16","July 28","August 4","August 18","November 19","October 17","November 2","December 6",]
     countdownDate = new Date('8/29/2022');
     diffMillis = Math.abs(now - countdownDate);
@@ -22,12 +23,82 @@ function getTime() {
     diff = now - start;
     oneDay = 1000 * 60 * 60 * 24;
     dayTestThing = Math.floor(diff / oneDay);
-    if (dayTestThing % 2  == 0) {
-        daytype = "odd"
-    } else {
-        daytype = "even"
-    }
+    monthsArray = [
+      'January',
+      'February',
+      'March',
+      'April',
+      'May',
+      'June',
+      'July',
+      'August',
+      'September',
+      'October',
+      'November',
+      'December'
+    ];
+    curDate = monthsArray[month] + " " + dayOfMonth;
+    daysOff = [
+      'September 2, 2022',  'September 5, 2022',
+      'September 26, 2022', 'October 5, 2022',
+      'October 10, 2022',   'October 24, 2022',
+      'November 7, 2022',   'November 8, 2022',
+      'November 11, 2022',  'November 23, 2022',
+      'November 24, 2022',  'November 25, 2022',
+      'December 19, 2022',  'December 20, 2022',
+      'December 21, 2022',  'December 22, 2022',
+      'December 23, 2022',  'December 24, 2022',
+      'December 25, 2022',  'December 26, 2022',
+      'December 27, 2022',  'December 28, 2022',
+      'December 29, 2022',  'December 30, 2022',
+      'December 31, 2022',  'January 1, 2023',
+      'January 16, 2023',   'January 27, 2023',
+      'February 20, 2023',  'April 3, 2023',
+      'April 4, 2023',      'April 5, 2023',
+      'April 6, 2023',      'April 7, 2023',
+      'April 8, 2023',      'April 9, 2023',
+      'April 10, 2023',     'May 29, 2023'
+    ]
+    let shortDays = [
+      'September 21, 2022',
+      'October 12, 2022',
+      'November 16, 2022',
+      'December 7, 2022',
+      'January 11, 2023',
+      'February 8, 2023',
+      'March 15, 2023',
+      'April 26, 2023',
+      'May 17, 2023',
+      'June 7, 2023',
+      'June 12, 2023',
+      'June 13, 2023',
+      'June 14, 2023',
+      'June 15, 2023',
+      'June 16, 2023'
+    ]
     
+    let isDayOff = daysOff.some(dayOff => dayOff.split(',')[0] === curDate);
+    let isShortDay = shortDays.some(shortDay => shortDay.split(',')[0] === curDate);
+
+    if (isDayOff) {
+        daytype = "odd";
+        specialday = "closed"
+    } else {
+        // Offset the day by the number of holidays that have occurred
+        if(isShortDay) {
+          specialday = "shortday"
+        }
+        let daysOffCount = daysOff.filter(x => moment(x, "MMMM DD, YYYY").isBefore(nowMoment)).length;
+        console.log(daysOffCount)
+        let adjustedDay = dayTestThing - daysOffCount;
+    
+        if (adjustedDay % 2 == 0) {
+            daytype = "odd";
+        } else {
+            daytype = "even";
+        }
+    }
+    console.log(daytype)
     
     
     suffixArray = [
@@ -94,27 +165,13 @@ function getTime() {
       'Friday',
       'Saturday'
     ];
-    monthsArray = [
-      'January',
-      'February',
-      'March',
-      'April',
-      'May',
-      'June',
-      'July',
-      'August',
-      'September',
-      'October',
-      'November',
-      'December'
-    ];
-    curDate = monthsArray[month] + " " + dayOfMonth;
+    
     workArray = [
-        'Andy is working from 4-9 PM.\nFelix is working from 9 AM-5 PM.', //sunday
+        'Andy is working from 4-9 PM.\nFelix is working from 9 AM-5 PM.\nAshley is working from 7 AM-12 PM.', //sunday
         'Felix is working from 4-7:30 PM.', //monday
         'Pob is working from 4-7 PM.', //tuesday
         'Andy is working from 5-10 PM.\nFelix is working from 4-7:30 PM.', //wednesday
-        'Pob is working from 4-7 PM.\nNick is working from 4-8 PM.', //thursday
+        'Pob is working from 4-7 PM.\nNick is working from 4-8 PM.\nAshley is working from 4-8 PM.', //thursday
         'Pob is working from 4-7 PM.', //friday
         'Pob is working from 12-3 PM.', //saturday
       ];
