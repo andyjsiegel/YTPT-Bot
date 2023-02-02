@@ -38,27 +38,105 @@ function getTime() {
       'December'
     ];
     curDate = monthsArray[month] + " " + dayOfMonth;
+    curDateYear = curDate + `, ${year}`
     daysOff = [
-      'September 2, 2022',  'September 5, 2022',
-      'September 26, 2022', 'October 5, 2022',
-      'October 10, 2022',   'October 24, 2022',
-      'November 7, 2022',   'November 8, 2022',
-      'November 11, 2022',  'November 23, 2022',
-      'November 24, 2022',  'November 25, 2022',
-      'December 19, 2022',  'December 20, 2022',
-      'December 21, 2022',  'December 22, 2022',
-      'December 23, 2022',  'December 24, 2022',
-      'December 25, 2022',  'December 26, 2022',
-      'December 27, 2022',  'December 28, 2022',
-      'December 29, 2022',  'December 30, 2022',
-      'December 31, 2022',  'January 1, 2023',
-      'January 16, 2023',   'January 27, 2023',
-      'February 20, 2023',  'April 3, 2023',
-      'April 4, 2023',      'April 5, 2023',
-      'April 6, 2023',      'April 7, 2023',
-      'April 8, 2023',      'April 9, 2023',
-      'April 10, 2023',     'May 29, 2023'
+      {date: 'September 2, 2022', name: 'Labor Day'},
+      {date: 'September 5, 2022', name: 'Labor Day'},
+      {date: 'September 26, 2022', name: 'Rosh Hashanah'},
+      {date: 'October 5, 2022', name: 'Yom Kippur'},
+      {date: 'October 10, 2022', name: 'Columbus Day'},
+      {date: 'October 24, 2022', name: 'Diwali'},
+      {date: 'November 7, 2022', name: 'Election Day'},
+      {date: 'November 8, 2022', name: 'Teacher Workday'},
+      {date: 'November 11, 2022', name: 'Veterans Day'},
+      {date: 'November 23, 2022', name: 'Thanksgiving Break'},
+      {date: 'November 24, 2022', name: 'Thanksgiving Day'},
+      {date: 'November 25, 2022', name: 'Thanksgiving Break'},
+      {date: 'December 19, 2022', name: 'Winter Break'},
+      {date: 'December 20, 2022', name: 'Winter Break'},
+      {date: 'December 21, 2022', name: 'Winter Break'},
+      {date: 'December 22, 2022', name: 'Winter Break'},
+      {date: 'December 23, 2022', name: 'Winter Break'},
+      {date: 'December 24, 2022', name: 'Christmas Eve'},
+      {date: 'December 25, 2022', name: 'Christmas Day'},
+      {date: 'December 26, 2022', name: 'Winter Break'},
+      {date: 'December 27, 2022', name: 'Winter Break'},
+      {date: 'December 28, 2022', name: 'Winter Break'},
+      {date: 'December 29, 2022', name: 'Winter Break'},
+      {date: 'December 30, 2022', name: 'Winter Break'},
+      {date: 'December 31, 2022', name: 'New Year\'s Eve'},
+      {date: 'January 1, 2023', name: 'New Year\'s Day'},
+      {date: 'January 16, 2023', name: 'Martin Luther King Jr. Day'},
+      {date: 'January 27, 2023', name: 'Teacher Workday'},
+      {date: 'February 20, 2023', name: 'Presidents\' Day'},
+      {date: 'April 3, 2023', name: 'Spring Break'},
+      {date: 'April 4, 2023', name: 'Spring Break'},
+      {date: 'April 5, 2023', name: 'Spring Break'},
+      {date: 'April 6, 2023', name: 'Spring Break'},
+      {date: 'April 7, 2023', name: 'Spring Break'},
+      {date: 'April 9, 2023', name: 'Easter Sunday'},
+      {date: 'April 10, 2023', name: 'Teacher Workday'},
+      
+      
+      { date: 'May 29, 2023', name: 'Memorial Day'},
+      
+      
     ]
+
+    importantDates = [
+      {date: 'September 2, 2022', name: 'Labor Day'},
+      {date: 'September 5, 2022', name: 'Labor Day'},
+      {date: 'September 26, 2022', name: 'Rosh Hashanah'},
+      {date: 'October 5, 2022', name: 'Yom Kippur'},
+      {date: 'October 10, 2022', name: 'Columbus Day'},
+      {date: 'October 24, 2022', name: 'Diwali'},
+      {date: 'November 7, 2022', name: 'Election Day'},
+      {date: 'November 8, 2022', name: 'Teacher Workday'},
+      {date: 'November 11, 2022', name: 'Veterans Day'},
+      {date: 'November 23, 2022', name: 'Thanksgiving Break'},
+      {date: 'November 24, 2022', name: 'Thanksgiving Day'},
+      {date: 'November 25, 2022', name: 'Thanksgiving Break'},
+      {date: 'December 19, 2022', name: 'Winter Break'},
+      {date: 'December 20, 2022', name: 'Winter Break'},
+      {date: 'December 21, 2022', name: 'Winter Break'},
+      {date: 'December 22, 2022', name: 'Winter Break'},
+      {date: 'December 23, 2022', name: 'Winter Break'},
+      {date: 'December 24, 2022', name: 'Christmas Eve'},
+      {date: 'December 25, 2022', name: 'Christmas Day'},
+      {date: 'December 26, 2022', name: 'Winter Break'},
+      {date: 'December 27, 2022', name: 'Winter Break'},
+      {date: 'December 28, 2022', name: 'Winter Break'},
+      {date: 'December 29, 2022', name: 'Winter Break'},
+      {date: 'December 30, 2022', name: 'Winter Break'},
+      {date: 'December 31, 2022', name: 'New Year\'s Eve'},
+      {date: 'January 1, 2023', name: 'New Year\'s Day'},
+      {date: 'January 16, 2023', name: 'Martin Luther King Jr. Day'},
+      {date: 'January 27, 2023', name: 'Teacher Workday'},
+      {date: 'February 20, 2023', name: 'Presidents\' Day'},
+      {date: 'April 3, 2023', name: 'Spring Break'},
+      {date: 'April 4, 2023', name: 'Spring Break'},
+      {date: 'April 5, 2023', name: 'Spring Break'},
+      {date: 'April 6, 2023', name: 'Spring Break'},
+      {date: 'April 7, 2023', name: 'Spring Break'},
+      {date: 'April 9, 2023', name: 'Easter Sunday'},
+      {date: 'April 10, 2023', name: 'Teacher Workday'},
+      { date: 'April 28, 2023', name: 'IB Business & Management Paper 1' },
+      { date: 'May 1, 2023', name: 'IB Business & Management Paper 2' },
+      { date: 'May 3, 2023', name: 'English A: Literature HL - Paper 1' },
+      { date: 'May 4, 2023', name: 'English A: Literature HL - Paper 2' },
+      { date: 'May 5, 2023', name: 'Computer Science SL - Paper 1' },
+      { date: 'May 8, 2023', name: 'Computer Science SL - Paper 2' },
+      { date: 'May 8, 2023', name: 'Mathematics AI - Paper 1' },
+      { date: 'May 9, 2023', name: 'Mathematics AI - Paper 2' },
+      { date: 'May 10, 2023', name: 'World History - Paper 1' },
+      { date: 'May 10, 2023', name: 'World History - Paper 2' },
+      { date: 'May 11, 2023', name: 'World History - Paper 3' },
+      { date: 'May 19, 2023', name: 'Last Day of School for Seniors' },
+      { date: 'May 29, 2023', name: 'Memorial Day'},
+      { date: 'June 7, 2023', name: 'Graduation'},
+      { date: 'June 16, 2023', name: 'Last Day Of K-12 School'}
+    ]
+    
     let shortDays = [
       'September 21, 2022',
       'October 12, 2022',
@@ -76,8 +154,60 @@ function getTime() {
       'June 15, 2023',
       'June 16, 2023'
     ]
+
+    function getCountdown(daysOff) {
+      const now = new Date();
+      let closestDate = null;
+      let closestNamedDate = null;
+      let closestDiff = Number.MAX_SAFE_INTEGER;
     
-    let isDayOff = daysOff.some(dayOff => dayOff.split(',')[0] === curDate);
+      daysOff.forEach(dayOff => {
+        const date = new Date(dayOff.date);
+        const nameOfDate = dayOff.name
+        const diff = date.getTime() - now.getTime();
+    
+        if (diff > 0 && diff < closestDiff) {
+          closestDate = date;
+          closestNamedDate = nameOfDate
+          closestDiff = diff;
+        }
+      });
+      if (closestDate === null) {
+        return "There are no upcoming events.";
+      }
+    
+      const oneDay = 24 * 60 * 60 * 1000;
+      const diffDays = Math.round(closestDiff / oneDay);
+    
+      if (diffDays === 0) {
+        return `Today is ${closestNamedDate}.`;
+      }
+    
+      return `There are ${diffDays} day(s) until ${closestNamedDate}.`;
+    }
+    
+    function getClosestDates(importantDates, currentDate) {
+      const sortedImportantDates = importantDates.sort((a, b) => {
+        return new Date(a.date) - new Date(b.date);
+      });
+    
+      const closestImportantDates = sortedImportantDates.filter(dayOff => {
+        return new Date(dayOff.date) >= currentDate;
+      });
+    
+      return closestImportantDates;
+    }
+    
+    const currentDate = new Date();
+    const closestDates = getClosestDates(importantDates, currentDate);
+    upcomingEvents = "";
+    closestDates.forEach((item, idx, arr) => {
+      upcomingEvents += `${item.date} - ${item.name}\n`
+    })
+    
+    
+    
+    let isDayOff = daysOff.some(dayOff => dayOff.date.split(',')[0] === curDate);
     let isShortDay = shortDays.some(shortDay => shortDay.split(',')[0] === curDate);
 
     if (isDayOff) {
@@ -175,11 +305,11 @@ function getTime() {
         'Pob is working from 4-7 PM.', //friday
         'Pob is working from 12-3 PM.', //saturday
       ];
-
-    return { monthsArray, daysArray, meridiemUZ, meridiemET, uzbek, ET, schoolday, suffixArray, year, ETm, month, dayOfMonth, bdays, day, countdownDate, diffMillis, diffDays, curDate, daytype }
+    nextDate = getCountdown(daysOff)
+    
+    return { monthsArray, daysArray, meridiemUZ, meridiemET, uzbek, ET, schoolday, suffixArray, year, ETm, month, dayOfMonth, bdays, day, countdownDate, diffMillis, diffDays, curDate, daytype, nextDate, upcomingEvents }
 }
 getTime();
-
 
 const schedule = { 
   aidan: {
@@ -443,9 +573,10 @@ async function createTodayEmbed(daytype, specialday) {
   }
   todayEmbed = new EmbedBuilder()
       .setTitle("Today is " + daysArray[day] + ", " + monthsArray[month] + " " + dayOfMonth + suffixArray[dayOfMonth-1] + ", " + year)
+      .setDescription(nextDate)
       .setColor("#5865F2")
       .addFields(
-        { name: scheduleTitle, value: schoolday, inline: true },
+        { name: scheduleTitle, value: schoolday, inline: false },
         { name: "Work Schedule:", value: workArray[day], inline: false },
       )
       .setTimestamp()
