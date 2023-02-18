@@ -211,7 +211,7 @@ function getTime() {
     
     let isDayOff = daysOff.some(dayOff => dayOff.date.split(',')[0] === curDate);
     let isShortDay = shortDays.some(shortDay => shortDay.split(',')[0] === curDate);
-    specialday = ""
+    specialday = "specialday"
     if (isDayOff) {
         daytype = "odd";
         specialday = "closed"
@@ -231,6 +231,7 @@ function getTime() {
         }
     }
     console.log(daytype)
+    console.log(specialday)
     
     
     suffixArray = [
