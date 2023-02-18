@@ -211,7 +211,7 @@ function getTime() {
     
     let isDayOff = daysOff.some(dayOff => dayOff.date.split(',')[0] === curDate);
     let isShortDay = shortDays.some(shortDay => shortDay.split(',')[0] === curDate);
-
+    specialday = ""
     if (isDayOff) {
         daytype = "odd";
         specialday = "closed"
