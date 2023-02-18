@@ -28,7 +28,7 @@ client.once('ready', () => {
 });
 
 schedule.scheduleJob('30 11 * * *', async () => { 
-	const { daytype } = getTime();
+	const { daytype, specialday } = getTime();
 	specialday = ""
 	const { todayRow, todayEmbed, sendButtons } = await createTodayEmbed(daytype, specialday)
 	todayMessage = {

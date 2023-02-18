@@ -124,9 +124,11 @@ function getTime() {
       { date: 'May 1, 2023', name: 'IB Business & Management Paper 2' },
       { date: 'May 3, 2023', name: 'English A: Literature HL - Paper 1' },
       { date: 'May 4, 2023', name: 'English A: Literature HL - Paper 2' },
+      { date: 'May 5, 2023', name: 'Environmental Systems and Societies - Paper 1' },
       { date: 'May 5, 2023', name: 'Computer Science SL - Paper 1' },
       { date: 'May 8, 2023', name: 'Computer Science SL - Paper 2' },
       { date: 'May 8, 2023', name: 'Mathematics AI - Paper 1' },
+      { date: 'May 8, 2023', name: 'Environmental Systems and Societies - Paper 2' },
       { date: 'May 9, 2023', name: 'Mathematics AI - Paper 2' },
       { date: 'May 10, 2023', name: 'World History - Paper 1' },
       { date: 'May 10, 2023', name: 'World History - Paper 2' },
@@ -307,7 +309,7 @@ function getTime() {
       ];
     nextDate = getCountdown(daysOff)
     
-    return { monthsArray, daysArray, meridiemUZ, meridiemET, uzbek, ET, schoolday, suffixArray, year, ETm, month, dayOfMonth, bdays, day, countdownDate, diffMillis, diffDays, curDate, daytype, nextDate, upcomingEvents }
+    return { monthsArray, daysArray, meridiemUZ, meridiemET, uzbek, ET, schoolday, suffixArray, year, ETm, month, dayOfMonth, bdays, day, countdownDate, diffMillis, diffDays, curDate, daytype, nextDate, upcomingEvents, specialday }
 }
 getTime();
 
