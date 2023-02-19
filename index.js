@@ -27,7 +27,7 @@ client.once('ready', () => {
     client.user.setActivity(`Sex 2's Ranked Mode`, { type: ActivityType.Competing });
 });
 
-schedule.scheduleJob('08 9 * * *', async () => { 
+schedule.scheduleJob('30 11 * * *', async () => { 
 	const { daytype, specialday } = getTime();
 	const { todayRow, todayEmbed, sendButtons } = await createTodayEmbed(daytype, specialday)
 	todayMessage = {
