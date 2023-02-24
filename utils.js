@@ -303,6 +303,7 @@ async function getTime() {
     })
     
     
+    
     todaysEvents = await authorize().then(listEvents).catch(console.error)
     console.log(todaysEvents)
     let isDayOff = daysOff.some(dayOff => dayOff.date.split(',')[0] === curDate);

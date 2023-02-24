@@ -1,7 +1,7 @@
 const fs = require('node:fs');
 const path = require('node:path');
 // const clipboardy = require('clipboardy')
-const { Client, GatewayIntentBits, Collection, Partials, InteractionType, ActivityType, ModalBuilder, ActionRowBuilder, TextInputBuilder, TextInputStyle, ContextMenuCommandBuilder, ApplicationCommandType, EmbedBuilder } = require('discord.js');
+const { Client, GatewayIntentBits, Collection, Partials, InteractionType, ActivityType, ModalBuilder, ActionRowBuilder, TextInputBuilder, TextInputStyle, ContextMenuCommandBuilder, ApplicationCommandType, EmbedBuilder, AttachmentBuilder } = require('discord.js');
 const { token } = require('./config.json');
 const { schedules, getName, getTime, getUserObject, createTodayEmbed, checkBDay } = require('./utils.js');
 const today = require('./commands/today');
@@ -239,6 +239,10 @@ client.on('messageCreate', async message => {
 			message.channel.send("Common FCCPS L")
 			// message.channel.send("response")
 		}
+	}
+	if(message.content.startsWith('!') && message.content.length > 3) {
+		const imEXHAUSTED = new AttachmentBuilder(`https://media.discordapp.net/attachments/1026318046371008592/1068377073430835290/IMG_8685.png`)
+		message.reply({content: "WHY ARE PEOPLE USING MESSAGE COMMANDS IN 2023?????", files:[imEXHAUSTED]})
 	}
 	
 });
