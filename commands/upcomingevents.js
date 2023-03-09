@@ -3,8 +3,8 @@ const { getTime } = require('../utils')
 
 module.exports = {
     data: new SlashCommandBuilder()
-    .setName('events')
-    .setDescription('View Upcoming Events')
+    .setName('dates')
+    .setDescription('this shows upcoming SCHOOL events!!!!')
     .setDefaultMemberPermissions(PermissionsBitField.Flags.SendMessages),
     async execute(interaction) {
         const { upcomingEvents } = await getTime()
