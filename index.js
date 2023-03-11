@@ -75,7 +75,7 @@ client.on('interactionCreate', async interaction => {
 			else if(name.toLowerCase() === "defenestrat10n") {interaction.reply({ embeds: [tobySchedule], ephemeral: true }) }
 		}
 		if(interaction.customId === 'workSchedule') {
-			// const { todayMessage } = require('./commands/updatetoday')
+			const { todayMessage } = require('./commands/updatetoday')
 			await interaction.channel.messages.fetch(interaction.message.id).then(message => {
 				if(message.embeds[0].fields[1].value.includes(getName(interaction.user.username))) {
 					
@@ -127,24 +127,60 @@ client.on('interactionCreate', async interaction => {
 	if(interaction.type === InteractionType.ModalSubmit) {
 		
 		if(interaction.customId === 'hoursModal') {
+			function sortWorkArray(workArray) {
+				workArray.sort(function(a, b) {
+				  // Get the start times of each person's shift
+				  const aStartTime = a.split(' ')[3];
+				  const bStartTime = b.split(' ')[3];
+			  
+				  // Convert the start times to a 24-hour format and parse them as integers
+				  const aStartTime24h = convertTo24HourFormat(aStartTime);
+				  const bStartTime24h = convertTo24HourFormat(bStartTime);
+			  
+				  // Compare the start times and return the sort order
+				  if (aStartTime24h < bStartTime24h) {
+					return -1;
+				  } else if (aStartTime24h > bStartTime24h) {
+					return 1;
+				  } else {
+					return 0;
+				  }
+				});
+			  
+				return workArray;
+			}
+			function convertTo24HourFormat(timeStr) {
+				let [hours, minutes] = timeStr.split(/[: ]/);
+				hours = parseInt(hours);
+				minutes = parseInt(minutes);
+			  
+				if (timeStr.includes('PM') && hours !== 12) {
+				  hours += 12;
+				} else if (timeStr.includes('AM') && hours === 12) {
+				  hours = 0;
+				}
+			  
+				return (hours * 60) + minutes;
+			}
+
 			await interaction.reply({content:'Submission Recieved!',ephemeral: true})
 			const hoursWorking = interaction.fields.getTextInputValue('hoursInput')
 			const person = interaction.fields.getTextInputValue('nameInput')
 			await interaction.channel.messages.fetch(interaction.message.id).then(message => {
-				var oldTodayEmbed = message.embeds[0]
-				if(oldTodayEmbed.fields[1].value === 'No one is working today.') {
-					oldTodayEmbed.fields[1].value = person + " is working from " + hoursWorking + "." 
-				} else {
-					oldTodayEmbed.fields[1].value = oldTodayEmbed.fields[1].value + '\n' + person + " is working from " + hoursWorking + "." 
-				}
-				message.edit({ embeds: [oldTodayEmbed]})
+				const todayEmbed = message.embeds[0];
+				var workField = todayEmbed.fields[1].value;
+				workField = workField.split('\n')
+					.concat([`${person} is working from ${hoursWorking}.`])
+				workField = sortWorkArray(workField).join('\n');
+				todayEmbed.fields[1].value = workField;	
+				message.edit({ embeds: [todayEmbed]})
 				const botsChannel = client.channels.cache.get('673726915110240269')
 				botsChannel.send(`Work Update: **${person}** is working today.`)
 				try {
-					todayMessage.embed = oldTodayEmbed
+					todayMessage.embed = todayEmbed
 				} catch {
 					const { todayMessage } = require('./commands/updatetoday')
-					todayMessage.embed = oldTodayEmbed
+					todayMessage.embed = todayEmbed
 				}
 			})
 		}
