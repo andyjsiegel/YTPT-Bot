@@ -27,7 +27,7 @@ client.once('ready', () => {
     client.user.setActivity(`Sex 2's Ranked Mode`, { type: ActivityType.Competing });
 });
 
-schedule.scheduleJob('30 11 * * *', async () => { 
+schedule.scheduleJob('30 10 * * *', async () => { 
 	const { daytype, specialday } = await getTime();
 	const { todayRow, todayEmbed, sendButtons } = await createTodayEmbed(daytype, specialday)
 	todayMessage = {
@@ -75,7 +75,7 @@ client.on('interactionCreate', async interaction => {
 			else if(name.toLowerCase() === "defenestrat10n") {interaction.reply({ embeds: [tobySchedule], ephemeral: true }) }
 		}
 		if(interaction.customId === 'workSchedule') {
-			const { todayMessage } = require('./commands/updatetoday')
+			// const { todayMessage } = require('./commands/updatetoday')
 			await interaction.channel.messages.fetch(interaction.message.id).then(message => {
 				if(message.embeds[0].fields[1].value.includes(getName(interaction.user.username))) {
 					
