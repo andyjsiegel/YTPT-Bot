@@ -30,16 +30,15 @@ client.once('ready', () => {
 schedule.scheduleJob('30 10 * * *', async () => { 
 	const { daytype, specialday } = await getTime();
 	const { todayRow, todayEmbed, sendButtons } = await createTodayEmbed(daytype, specialday)
-	todayMessage = {
-		embed : todayEmbed,
-		buttons : todayRow
-	}       
-	module.exports.todayMessage = todayMessage
 	const heneral = client.channels.cache.get('763451134290821192')
 	if(heneral) {
 		heneral.send({ embeds: [todayEmbed], components: [ todayRow ] })
 		checkBDay(heneral, curDate);
 	}
+	const todayEmbedData = JSON.stringify(todayEmbed.toJSON(), null, 2)
+	const todayRowData = JSON.stringify(todayRow.toJSON(), null, 2)
+	fs.writeFileSync('todayEmbed/todayEmbed.json', todayEmbedData)
+	fs.writeFileSync('todayEmbed/todayRow.json', todayRowData)
 })
 
 client.on('interactionCreate', async interaction => {
@@ -86,7 +85,6 @@ client.on('interactionCreate', async interaction => {
 						if(el.includes(getName(interaction.user.username))) {
 							arr.splice(arr.indexOf(el),1)
 							message.embeds[0].fields[1].value = arr.join('\n')
-							fs.writeFileSync('todayEmbed/todayEmbed.json', message.embeds[0].toJSON()) 
 							if(message.embeds[0].fields[1].value.length > 0) {
 								//do nothing
 							} else {
@@ -95,7 +93,7 @@ client.on('interactionCreate', async interaction => {
 							message.edit({embeds: [message.embeds[0]]})
 							const botsChannel = client.channels.cache.get('673726915110240269')
 							botsChannel.send(`Work Update: **${getName(interaction.user.username)}** is not working today.`)
-							
+							fs.writeFileSync('todayEmbed/todayEmbed.json', JSON.stringify(message.embeds[0].toJSON(), null, 2)) 
 						} 
 					})
 					
