@@ -174,7 +174,7 @@ client.on('interactionCreate', async interaction => {
 				message.edit({ embeds: [todayEmbed]})
 				const botsChannel = client.channels.cache.get('673726915110240269')
 				botsChannel.send(`Work Update: **${person}** is working today.`)
-				fs.writeFileSync('todayEmbed/todayEmbed.json', todayEmbed.toJSON()) 
+				fs.writeFileSync('todayEmbed/todayEmbed.json', JSON.stringify(todayEmbed.toJSON(), null, 2)) 
 			})
 		}
 	}
