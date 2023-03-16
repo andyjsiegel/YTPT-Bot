@@ -1,0 +1,22 @@
+{
+  "title": "Today is Wednesday, March 15th, 2023",
+  "description": "There are 18 day(s) until Spring Break.",
+  "color": 5793266,
+  "fields": [
+    {
+      "name": "Schedule [Short Day]:",
+      "value": "Block 2 [8:05 - 9:01]\nBlock 3 [9:07 - 10:04]\nBlock 4 [10:10 - 11:07]\nBlock 6 [11:13 - 12:10]",
+      "inline": false
+    },
+    {
+      "name": "Work Schedule:",
+      "value": "Andy is working from 5-10 PM.\nFelix is working from 4-7:30 PM.",
+      "inline": false
+    }
+  ],
+  "timestamp": "2023-03-15T16:02:52.904Z",
+  "footer": {
+    "text": "Brought to you by YTPT Bot",
+    "icon_url": "https://cdn.discordapp.com/emojis/810653717690318918.webp?size=240&quality=lossless"
+  }
+}

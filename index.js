@@ -86,7 +86,7 @@ client.on('interactionCreate', async interaction => {
 						if(el.includes(getName(interaction.user.username))) {
 							arr.splice(arr.indexOf(el),1)
 							message.embeds[0].fields[1].value = arr.join('\n')
-							todayMessage.embed = message.embeds[0];
+							fs.writeFileSync('todayEmbed/todayEmbed.json', message.embeds[0].toJSON()) 
 							if(message.embeds[0].fields[1].value.length > 0) {
 								//do nothing
 							} else {
@@ -176,12 +176,7 @@ client.on('interactionCreate', async interaction => {
 				message.edit({ embeds: [todayEmbed]})
 				const botsChannel = client.channels.cache.get('673726915110240269')
 				botsChannel.send(`Work Update: **${person}** is working today.`)
-				try {
-					todayMessage.embed = todayEmbed
-				} catch {
-					const { todayMessage } = require('./commands/updatetoday')
-					todayMessage.embed = todayEmbed
-				}
+				fs.writeFileSync('todayEmbed/todayEmbed.json', todayEmbed.toJSON()) 
 			})
 		}
 	}

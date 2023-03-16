@@ -1,21 +1,16 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-
+const fs = require('fs')
 
 module.exports = {
     data: new SlashCommandBuilder()
 		.setName('today')
 		.setDescription('Sends today\'s schedule'),
     async execute(interaction) {
-      const { todayMessage } = require('../index.js')
-      try {
-        await interaction.reply({ embeds: [todayMessage.embed], components: [todayMessage.buttons] }) 
-      } catch {
-        const { todayMessage } = require('./updatetoday')
-        try {
-          await interaction.reply({ embeds: [todayMessage.embed], components: [todayMessage.buttons] }) 
-        } catch {
-          await interaction.reply("Today embed not created, use `/updatetoday` to do so.")
-        }
-      }
+      
+      const todayEmbed = JSON.parse(fs.readFileSync('todayEmbed/todayEmbed.json'))
+      const todayRow = JSON.parse(fs.readFileSync('todayEmbed/todayRow.json'))
+
+      
+      interaction.reply({ embeds:[todayEmbed], components:[todayRow] })
     }
 }
