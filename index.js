@@ -8,7 +8,14 @@ const today = require('./commands/today');
 const schedule = require('node-schedule')
 
 
-const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildPresences, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent] });
+const client = new Client({ 
+	intents: [
+		GatewayIntentBits.Guilds, GatewayIntentBits.GuildPresences, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent
+	],
+	partials: [Partials.Message, Partials.Channel, Partials.Reaction], 
+});
+
+
 
 client.commands = new Collection();
 const commandsPath = path.join(__dirname, 'commands');
@@ -25,21 +32,8 @@ for (const file of commandFiles) {
 client.once('ready', () => {
 	console.log(`logged in as ${client.user.tag}!`)
     client.user.setActivity(`Sex 2's Ranked Mode`, { type: ActivityType.Competing });
+	
 });
-
-schedule.scheduleJob('30 10 * * *', async () => { 
-	const { daytype, specialday } = await getTime();
-	const { todayRow, todayEmbed, sendButtons } = await createTodayEmbed(daytype, specialday)
-	const heneral = client.channels.cache.get('763451134290821192')
-	if(heneral) {
-		heneral.send({ embeds: [todayEmbed], components: [ todayRow ] })
-		checkBDay(heneral, curDate);
-	}
-	const todayEmbedData = JSON.stringify(todayEmbed.toJSON(), null, 2)
-	const todayRowData = JSON.stringify(todayRow.toJSON(), null, 2)
-	fs.writeFileSync('todayEmbed/todayEmbed.json', todayEmbedData)
-	fs.writeFileSync('todayEmbed/todayRow.json', todayRowData)
-})
 
 client.on('interactionCreate', async interaction => {
 	
@@ -191,69 +185,55 @@ const hameTalk = client.channels.cache.get(`747629100927025223`)
 
 client.on('messageCreate', async message => {
 	const schoolChannel = client.channels.cache.get(`667335722814144512`) 
-	if(message.content === "fartded") {
-		console.log(schoolChannel.guild.members.fetch('617497366420914231').then( member => {
-			member.timeout(10 * 60 * 1000, 'Chronic noobitis')
-		}))
-	}
 	if(message.content === "ping") {
 		message.channel.send("pong");
 	} 
-	if(message.content === "tripreminder") {
-		const ppl2bereminded = [client.users.cache.get('299886083745775616'), client.users.cache.get('555967885814661122')] 
+	 
+	// if(message.content === "secret santa!") {
+	// 	// Define names
+	// 	const names = ['andy', 'aidan', 'ashley', 'da', 'felix', 'nick', 'michael', 'sofie', 'pob', 'toby'];
+
+	// 	// Function to shuffle array
+	// 	const shuffle = (arr) => {
+	// 		for (let i = arr.length - 1; i > 0; i--) {
+	// 			const j = Math.floor(Math.random() * (i + 1));
+	// 			[arr[i], arr[j]] = [arr[j], arr[i]];
+	// 		}
+	// 		return arr;
+	// 	}
+
+	// 	const randomNames = shuffle(names);
+
+	// 	// Match each person with the next one, folding over at the end
+	// 	const matches = randomNames.map((name, index) => {
 		
-		const felix = client.users.cache.get('299886083745775616');
-		const michael = client.users.cache.get('555967885814661122');
-		const sofie = client.users.cache.get('471488873306914826');
-		ppl2bereminded.forEach((user, idx, arr) => {
-			user.send("Oi oi oi! Nick needs the train money for the trip. Get on it matey");
-		})
-	} 
-	if(message.content === "secret santa!") {
-		// Define names
-		const names = ['andy', 'aidan', 'ashley', 'da', 'felix', 'nick', 'michael', 'sofie', 'pob', 'toby'];
-
-		// Function to shuffle array
-		const shuffle = (arr) => {
-			for (let i = arr.length - 1; i > 0; i--) {
-				const j = Math.floor(Math.random() * (i + 1));
-				[arr[i], arr[j]] = [arr[j], arr[i]];
-			}
-			return arr;
-		}
-
-		const randomNames = shuffle(names);
-
-		// Match each person with the next one, folding over at the end
-		const matches = randomNames.map((name, index) => {
+	// 	return {
+	// 		santa: name,
+	// 		receiver: randomNames[index + 1] || randomNames[0],
+	// 		userObject: getUserObject(name, client),
+	// 	}
 		
-		return {
-			santa: name,
-			receiver: randomNames[index + 1] || randomNames[0],
-			userObject: getUserObject(name, client),
-		}
-		
-		});
+	// 	});
 
-		// console.log(matches);
-		matches.forEach((item, idx) => {
+	// 	// console.log(matches);
+	// 	matches.forEach((item, idx) => {
 			
-			const secretSantaEmbed = new EmbedBuilder()
-				.setTitle('Secret Santa!')
-				.addFields({name: "Santa", value: item.santa.charAt(0).toUpperCase() + item.santa.substring(1), inline: true},{name: "Receiver", value: item.receiver.charAt(0).toUpperCase() + item.receiver.substring(1), inline: true})
-				.setThumbnail('https://i.imgur.com/q8Ejlfj.png')
-			if(idx % 2 == 0) {
-				secretSantaEmbed.setColor('Red')
-			} else {
-				secretSantaEmbed.setColor('Green')
-			}
-			try {
-				item.userObject.send({ embeds: [secretSantaEmbed]}) //
-			} catch (error) {
-				console.log("Send failed for " + item.userObject.username)
-			}
-		})
-	}
+	// 		const secretSantaEmbed = new EmbedBuilder()
+	// 			.setTitle('Secret Santa!')
+	// 			.addFields({name: "Santa", value: item.santa.charAt(0).toUpperCase() + item.santa.substring(1), inline: true},{name: "Receiver", value: item.receiver.charAt(0).toUpperCase() + item.receiver.substring(1), inline: true})
+	// 			.setThumbnail('https://i.imgur.com/q8Ejlfj.png')
+	// 		if(idx % 2 == 0) {
+	// 			secretSantaEmbed.setColor('Red')
+	// 		} else {
+	// 			secretSantaEmbed.setColor('Green')
+	// 		}
+	// 		try {
+	// 			item.userObject.send({ embeds: [secretSantaEmbed]}) //
+	// 		} catch (error) {
+	// 			console.log("Send failed for " + item.userObject.username)
+	// 		}
+	// 	})
+	// }
 	if(message.content === "<@944070820236521522>") {
 		message.channel.send('https://tenor.com/view/summoned-i-have-been-summoned-power-gif-15859341')
 	}
@@ -272,6 +252,27 @@ client.on('messageCreate', async message => {
 	if(message.content.startsWith('!') && message.content.length > 3) {
 		const imEXHAUSTED = new AttachmentBuilder(`https://media.discordapp.net/attachments/1026318046371008592/1068377073430835290/IMG_8685.png`)
 		message.reply({content: "WHY ARE PEOPLE USING MESSAGE COMMANDS IN 2023?????", files:[imEXHAUSTED]})
+	}
+	if(message.content.includes('Sent via [Pipedream]')) {
+		message.react('👍')
+		const { curDate } = getTime();
+		const daytype = message.content.includes('ODD') ? "odd" : "even" 
+		let specialday = "";
+		if(message.content.toLowerCase().includes('early release')) {
+			specialday = "shortday"
+		} else if(!message.content.includes('ODD') && !message.content.includes('EVEN')) {
+			specialday = "closed"
+		}
+		const { todayRow, todayEmbed } = await createTodayEmbed(daytype, specialday)
+		const heneral = client.channels.cache.get('763451134290821192')
+		if(heneral) {
+			heneral.send({ embeds: [todayEmbed], components: [ todayRow ] })
+			checkBDay(heneral, curDate);
+		}
+		const todayEmbedData = JSON.stringify(todayEmbed.toJSON(), null, 2)
+		const todayRowData = JSON.stringify(todayRow.toJSON(), null, 2)
+		fs.writeFileSync('todayEmbed/todayEmbed.json', todayEmbedData)
+		fs.writeFileSync('todayEmbed/todayRow.json', todayRowData)
 	}
 	
 });

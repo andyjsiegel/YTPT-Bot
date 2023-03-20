@@ -3,100 +3,8 @@ const moment = require('moment-timezone');
 const fs = require('fs').promises;
 const path = require('path');
 const process = require('process');
-const {authenticate} = require('@google-cloud/local-auth');
-const { google } = require('googleapis');
+const { client } = require('./index.js')
 
-//google calendar integration
-
-const SCOPES = ['https://www.googleapis.com/auth/calendar.readonly'];
-const TOKEN_PATH = path.join(process.cwd(), 'token.json');
-const CREDENTIALS_PATH = path.join(process.cwd(), 'credentials.json');
-
-async function loadSavedCredentialsIfExist() {
-  try {
-    const content = await fs.readFile(TOKEN_PATH);
-    const credentials = JSON.parse(content);
-    return google.auth.fromJSON(credentials);
-  } catch (err) {
-    return null;
-  }
-}
-      /**
- * Serializes credentials to a file compatible with GoogleAUth.fromJSON.
- *
- * @param {OAuth2Client} client
- * @return {Promise<void>}
- */
-async function saveCredentials(client) {
-  const content = await fs.readFile(CREDENTIALS_PATH);
-  const keys = JSON.parse(content);
-  const key = keys.installed || keys.web;
-  const payload = JSON.stringify({
-    type: 'authorized_user',
-    client_id: key.client_id,
-    client_secret: key.client_secret,
-    refresh_token: client.credentials.refresh_token,
-  });
-  await fs.writeFile(TOKEN_PATH, payload);
-}
-
-/**
- * Load or request or authorization to call APIs.
- *
- */
-async function authorize() {
-  let client = await loadSavedCredentialsIfExist();
-  if (client.credentials) {
-    console.log(true)
-    return client
-  }
-  client = await authenticate({
-    scopes: SCOPES,
-    keyfilePath: CREDENTIALS_PATH,
-  });
-  if (!client.credentials) {
-    
-    await saveCredentials(client);
-  }
-  return client;
-}
-
-      /**
- * Lists the day's events.
- * @param {google.auth.OAuth2} auth An authorized OAuth2 client.
- */
-
-async function listEvents(auth) {
-  const calendar = google.calendar({ version: 'v3', auth });
-  const todayStart = moment().startOf('day').tz('Etc/UCT');
-  const todayEnd = moment().endOf('day').tz('Etc/UCT');
-  const res = await calendar.events.list({
-    calendarId: 'bsnhu2lsron13tp81hahb13jmpsjm9t1@import.calendar.google.com',
-    timeMin: todayStart.toISOString(),
-    maxResults: 10,
-    singleEvents: true,
-    orderBy: 'startTime',
-  });
-  
-  const events = res.data.items;
-  
-  if (!events || events.length === 0) {
-    console.log('No upcoming events found.');
-    return `No upcoming events found.`;
-  }
-  let formattedEvents = 'Today\'s events:\n'
-  const yearMonthDay = todayStart.toISOString().split(`T`)[0]
-  filteredEvents = events;
-  filteredEvents.map((event, i) => {
-    const start = event.start.dateTime || event.start.date;
-    if(!start.includes(yearMonthDay)) {
-      //do nothing
-    } else {
-      formattedEvents += `${start} - ${event.summary}\n`
-    }
-  });
-  return formattedEvents;
-}
 
 async function getTime() {
     now = new Date();
@@ -306,28 +214,28 @@ async function getTime() {
     
     
     
-    todaysEvents = await authorize().then(listEvents).catch(console.error)
-    console.log(todaysEvents)
+    
+    
     let isDayOff = daysOff.some(dayOff => dayOff.date.split(',')[0] === curDate);
     let isShortDay = shortDays.some(shortDay => shortDay.split(',')[0] === curDate);
-    specialday = ""
-    if (isDayOff) {
-        daytype = "odd";
-        specialday = "closed"
-    } else {
-        // Offset the day by the number of holidays that have occurred
-        if(isShortDay) {
-          specialday = "shortday"
-        }
+    // specialday = ""
+    // if (isDayOff) {
+    //     daytype = "odd";
+    //     specialday = "closed"
+    // } else {
+    //     // Offset the day by the number of holidays that have occurred
+    //     if(isShortDay) {
+    //       specialday = "shortday"
+    //     }
     
-        if (todaysEvents.includes(`ODD`)) {
-            daytype = "odd";
-        } else {
-            daytype = "even";
-        }
-    }
-    console.log(daytype)
-    console.log(specialday)
+    //     if (todaysEvents.includes(`ODD`)) {
+    //         daytype = "odd";
+    //     } else {
+    //         daytype = "even";
+    //     }
+    // }
+    // console.log(daytype)
+    // console.log(specialday)
     
     
     suffixArray = [
@@ -406,7 +314,7 @@ async function getTime() {
       ];
     nextDate = getCountdown(daysOff)
     
-    return { monthsArray, daysArray, meridiemUZ, meridiemET, uzbek, ET, schoolday, suffixArray, year, ETm, month, dayOfMonth, bdays, day, countdownDate, diffMillis, diffDays, curDate, daytype, nextDate, upcomingEvents, specialday }
+    return { monthsArray, daysArray, meridiemUZ, meridiemET, uzbek, ET, schoolday, suffixArray, year, ETm, month, dayOfMonth, bdays, day, countdownDate, diffMillis, diffDays, curDate, nextDate, upcomingEvents }
 }
 getTime();
 
@@ -856,4 +764,5 @@ module.exports = {
     createTodayEmbed,
     getUserObject,
     checkBDay,
+ 
 }
