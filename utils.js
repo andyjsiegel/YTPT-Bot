@@ -304,11 +304,11 @@ async function getTime() {
     ];
     
     workArray = [
-        'Andy is working from 4-9 PM.\nFelix is working from 9 AM-5 PM.\nAshley is working from 7 AM-12 PM.', //sunday
+        'Felix is working from 9 AM-5 PM.\nAshley is working from 7 AM-12 PM.', //sunday
         'Felix is working from 4-7:30 PM.', //monday
         'Pob is working from 4-7 PM.', //tuesday
-        'Andy is working from 5-10 PM.\nFelix is working from 4-7:30 PM.', //wednesday
-        'Pob is working from 4-7 PM.\nNick is working from 4-8 PM.\nAshley is working from 4-8 PM.', //thursday
+        'Felix is working from 4-7:30 PM.', //wednesday
+        'Pob is working from 4-7 PM.\n\nAshley is working from 4-8 PM.', //thursday
         'Pob is working from 4-7 PM.', //friday
         'Pob is working from 12-3 PM.', //saturday
       ];

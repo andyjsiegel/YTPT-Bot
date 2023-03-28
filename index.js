@@ -274,6 +274,32 @@ client.on('messageCreate', async message => {
 		fs.writeFileSync('todayEmbed/todayEmbed.json', todayEmbedData)
 		fs.writeFileSync('todayEmbed/todayRow.json', todayRowData)
 	}
+	if(message.content.includes(`https://discord.com/channels/`)) {
+		const re = /(http|ftp|https):\/\/([\w_-]+(?:(?:\.[\w_-]+)+))([\w.,@?^=%&:\/~+#-]*[\w@?^=%&\/~+#-])/
+		let link = message.content.match(re)
+		link = link[0].split('/')
+		// console.log(link);
+		//index 4 = guild id
+		//index 5 = channel id
+		//index 6 = message id
+		let channel = client.channels.cache.get(link[5])
+		let fetchedMsg = await channel.messages.fetch(link[6])
+		
+		const messagePreviewEmbed = new EmbedBuilder()
+			.setTitle("Message Preview")
+			.setAuthor({ name: `${fetchedMsg.author.username}#${fetchedMsg.author.discriminator}`, iconURL: fetchedMsg.author.displayAvatarURL({ extension: 'png' }) })
+			.setFooter({ text: 'Brought to you by YTPT Bot', iconURL: 'https://cdn.discordapp.com/emojis/810653717690318918.webp?size=240&quality=lossless' })
+			.setTimestamp();
+		if(fetchedMsg.attachments) {
+			messagePreviewEmbed.setImage(fetchedMsg.attachments.entries().next().value[1].attachment)
+		}
+		if(fetchedMsg.content) {
+			messagePreviewEmbed.setDescription(`**Content:** \`${fetchedMsg.content}\` `)
+		}
+
+		message.channel.send({ embeds: [messagePreviewEmbed] })
+		//channel.messages.fetch(messageid)
+	}
 	
 });
 
