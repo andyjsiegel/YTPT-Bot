@@ -1,22 +1,24 @@
 {
+  "type": "rich",
   "title": "Today is ጠልፕፕጎነ ጠዐረቿነፕጎቿ. ልፕ ረቿርፕሁነ ሁዪክል",
-  "description": "[object Object]",
-  "color": 5793266,
+  "timestamp": "1947-07-08T07:17:52.904000+00:00",
+  "footer": {
+    "text": "ʇoꓭ ꓕԀꓕ⅄ ʎq noʎ oʇ ʇɥƃnoɹꓭ",
+    "proxy_icon_url": "https://media.discordapp.net/attachments/618461880767479871/1036360991543414824/unknown.png",
+    "icon_url": "https://media.discordapp.net/attachments/618461880767479871/1036360991543414824/unknown.png?width=1264&height=1138"
+  },
   "fields": [
     {
-      "name": "null",
       "value": "undefined",
+      "name": "null",
       "inline": false
     },
     {
-      "name": "\u200B",
-      "value": "\u200B",
+      "value": "​\nAndy is working from 5-10 PM.",
+      "name": "​",
       "inline": false
     }
   ],
-  "timestamp": "1947-07-08T07:17:52.904Z",
-  "footer": {
-    "text": "ʇoꓭ ꓕԀꓕ⅄ ʎq noʎ oʇ ʇɥƃnoɹꓭ",
-    "icon_url": "https://media.discordapp.net/attachments/618461880767479871/1036360991543414824/unknown.png?width=1264&height=1138"
-  }
+  "description": "[object Object]",
+  "color": 5793266
 }

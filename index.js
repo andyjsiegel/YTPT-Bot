@@ -163,7 +163,7 @@ client.on('interactionCreate', async interaction => {
 				var workField = todayEmbed.fields[1].value;
 				workField = workField.split('\n')
 					.concat([`${person} is working from ${hoursWorking}.`])
-				workField = sortWorkArray(workField).join('\n');
+				workField = workField.join('\n');
 				todayEmbed.fields[1].value = workField;	
 				message.edit({ embeds: [todayEmbed]})
 				const botsChannel = client.channels.cache.get('673726915110240269')
