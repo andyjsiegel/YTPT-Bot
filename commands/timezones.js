@@ -18,10 +18,10 @@ module.exports = {
             .setColor("Greyple")
             .setDescription("Timezones for all our colleges")
             .addFields(
-                { name: "Arizona Time", value: moment().tz(azTime).format("h:m a"), inline: true },
-                { name: "Central Time", value: moment().tz(chicagoTime).format("h:m a"), inline: true },
-                { name: "Eastern Time", value: moment().tz(easternTime).format("h:m a"), inline: true },
-                { name: "Uzbekistan Time", value: moment().tz(uzbekistanTime).format("h:m a"), inline: true },
+                { name: "Arizona Time", value: moment().tz(azTime).format("h:mm a"), inline: true },
+                { name: "Central Time", value: moment().tz(chicagoTime).format("h:mm a"), inline: true },
+                { name: "Eastern Time", value: moment().tz(easternTime).format("h:mm a"), inline: true },
+                { name: "Uzbekistan Time", value: moment().tz(uzbekistanTime).format("h:mm a"), inline: true },
             )
             .setFooter({ text: 'Brought to you by YTPT Bot', iconURL: 'https://cdn.discordapp.com/emojis/810653717690318918.webp?size=240&quality=lossless' })
         interaction.reply({ embeds: [timeZones] })
