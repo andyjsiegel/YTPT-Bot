@@ -308,7 +308,7 @@ async function getTime() {
         'Felix is working from 4-7:30 PM.', //monday
         'Pob is working from 4-7 PM.', //tuesday
         'Felix is working from 4-7:30 PM.', //wednesday
-        'Pob is working from 4-7 PM.\n\nAshley is working from 4-8 PM.', //thursday
+        'Pob is working from 4-7 PM.\nAshley is working from 4-8 PM.', //thursday
         'Pob is working from 4-7 PM.', //friday
         'Pob is working from 12-3 PM.', //saturday
       ];

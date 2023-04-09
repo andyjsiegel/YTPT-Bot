@@ -282,8 +282,15 @@ client.on('messageCreate', async message => {
 		//index 4 = guild id
 		//index 5 = channel id
 		//index 6 = message id
-		let channel = client.channels.cache.get(link[5])
-		let fetchedMsg = await channel.messages.fetch(link[6])
+		let channel
+		let fetchedMsg
+		try {
+			channel = client.channels.cache.get(link[5])
+			fetchedMsg = await channel.messages.fetch(link[6])
+		} catch {
+			message.reply("I don't have access to that guild/channel/message.")
+		}
+		
 		
 		const messagePreviewEmbed = new EmbedBuilder()
 			.setTitle("Message Preview")
