@@ -3,7 +3,6 @@ const moment = require('moment-timezone');
 const fs = require('fs').promises;
 const path = require('path');
 const process = require('process');
-const { client } = require('./index.js')
 
 
 async function getTime() {
