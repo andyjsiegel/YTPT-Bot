@@ -119,41 +119,6 @@ client.on('interactionCreate', async interaction => {
 	if(interaction.type === InteractionType.ModalSubmit) {
 		
 		if(interaction.customId === 'hoursModal') {
-			function sortWorkArray(workArray) {
-				workArray.sort(function(a, b) {
-				  // Get the start times of each person's shift
-				  const aStartTime = a.split(' ')[3];
-				  const bStartTime = b.split(' ')[3];
-			  
-				  // Convert the start times to a 24-hour format and parse them as integers
-				  const aStartTime24h = convertTo24HourFormat(aStartTime);
-				  const bStartTime24h = convertTo24HourFormat(bStartTime);
-			  
-				  // Compare the start times and return the sort order
-				  if (aStartTime24h < bStartTime24h) {
-					return -1;
-				  } else if (aStartTime24h > bStartTime24h) {
-					return 1;
-				  } else {
-					return 0;
-				  }
-				});
-			  
-				return workArray;
-			}
-			function convertTo24HourFormat(timeStr) {
-				let [hours, minutes] = timeStr.split(/[: ]/);
-				hours = parseInt(hours);
-				minutes = parseInt(minutes);
-			  
-				if (timeStr.includes('PM') && hours !== 12) {
-				  hours += 12;
-				} else if (timeStr.includes('AM') && hours === 12) {
-				  hours = 0;
-				}
-			  
-				return (hours * 60) + minutes;
-			}
 
 			await interaction.reply({content:'Submission Recieved!',ephemeral: true})
 			const hoursWorking = interaction.fields.getTextInputValue('hoursInput')
@@ -163,6 +128,7 @@ client.on('interactionCreate', async interaction => {
 				var workField = todayEmbed.fields[1].value;
 				workField = workField.split('\n')
 					.concat([`${person} is working from ${hoursWorking}.`])
+				if(workField.includes("No one is working today.")) { workField.shift() }
 				workField = workField.join('\n');
 				todayEmbed.fields[1].value = workField;	
 				message.edit({ embeds: [todayEmbed]})
@@ -287,25 +253,29 @@ client.on('messageCreate', async message => {
 		try {
 			channel = client.channels.cache.get(link[5])
 			fetchedMsg = await channel.messages.fetch(link[6])
+			const messagePreviewEmbed = new EmbedBuilder()
+			.setTitle("Message Preview")
+			.setAuthor({ name: `${fetchedMsg.author.username}#${fetchedMsg.author.discriminator}`, iconURL: fetchedMsg.author.displayAvatarURL({ extension: 'png' }) })
+			.setFooter({ text: 'Brought to you by YTPT Bot', iconURL: 'https://cdn.discordapp.com/emojis/810653717690318918.webp?size=240&quality=lossless' })
+			.setTimestamp();
+			if(fetchedMsg.attachments) {
+				messagePreviewEmbed.setImage(fetchedMsg.attachments.entries().next().value[1].attachment)
+			}
+			if(fetchedMsg.content) {
+				messagePreviewEmbed.setDescription(`**Content:** \`${fetchedMsg.content}\` `)
+			}
+
+			message.channel.send({ embeds: [messagePreviewEmbed] })
 		} catch {
 			message.reply("I don't have access to that guild/channel/message.")
 		}
 		
 		
-		const messagePreviewEmbed = new EmbedBuilder()
-			.setTitle("Message Preview")
-			.setAuthor({ name: `${fetchedMsg.author.username}#${fetchedMsg.author.discriminator}`, iconURL: fetchedMsg.author.displayAvatarURL({ extension: 'png' }) })
-			.setFooter({ text: 'Brought to you by YTPT Bot', iconURL: 'https://cdn.discordapp.com/emojis/810653717690318918.webp?size=240&quality=lossless' })
-			.setTimestamp();
-		if(fetchedMsg.attachments) {
-			messagePreviewEmbed.setImage(fetchedMsg.attachments.entries().next().value[1].attachment)
-		}
-		if(fetchedMsg.content) {
-			messagePreviewEmbed.setDescription(`**Content:** \`${fetchedMsg.content}\` `)
-		}
-
-		message.channel.send({ embeds: [messagePreviewEmbed] })
+		
 		//channel.messages.fetch(messageid)
+	}
+	if(message.content.includes('LOGTHIS')) {
+		console.log(message.embeds[0].data.video)
 	}
 	
 });
