@@ -449,7 +449,7 @@ function getName(username) {
     case "SexEnjoyer": 
       name = "Andyeet"
       break;
-  case "ghostlyworlds": 
+  case "ghostlywords": 
       name = "Ashley"
       break;
     case "hello there": 
